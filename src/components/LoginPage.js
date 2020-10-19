@@ -1,9 +1,19 @@
 import React, { useState } from "react";
+import {api} from '../services/api'
 import { Container, Form, Button } from "react-bootstrap";
 
 const { Group, Label, Control } = Form;
 
 function LoginPage() {
+
+    const [user, setUser] = useState({})
+    const [error, setError] = useState(false)
+
+    //Set user state to username and passwords fields
+    const handleChange = (e) => {
+        setUser({...user, [e.target.name]: e.target.value})
+    }
+    
   return (
     <>
       <div style={{marginTop: 50}}>
@@ -14,11 +24,11 @@ function LoginPage() {
           <Form>
             <Group>
               <Label>Username</Label>
-              <Control type="email" placeholder="Enter username" />
+              <Control name="username" type="email" placeholder="Enter username" onChange={handleChange}/>
             </Group>
             <Group>
               <Label>Password</Label>
-              <Control type="email" placeholder="Enter password" />
+              <Control name="password" type="password" placeholder="Enter password" onChange={handleChange}/>
             </Group>
             <Button variant="primary" type="submit">
               Log In
