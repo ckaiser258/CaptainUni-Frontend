@@ -37,7 +37,7 @@ const getCurrentUser = () => {
 }
 
 //Grab user params and send POST request to create new user
-const createUser = data => {
+const createUser = (data) => {
     let obj = userObj(data)
     return fetch(`${API_ROOT}/users`, {
         method: "POST",
@@ -45,4 +45,54 @@ const createUser = data => {
         body: JSON.stringify({ "user": obj })
     })
     .catch(error => alert(error.message))
+}
+
+//Fetch athletes for current user
+const getAthletes = () => {
+    return fetch(`${API_ROOT}/athletes`, {
+        headers: headers()
+    })
+    .then (res => res.json())
+}
+
+const createAthlete = (data) => {
+    return fetch(`${API_ROOT}/athletes`, {
+        method: "POST",
+        headers: headers(),
+        body: JSON.stringify({ "athlete": data })
+    })
+    .catch(error => alert(error.message))
+}
+
+const editAthlete = (data) => {
+    return fetch(`${API_ROOT}/athletes/${data.id}`, {
+        method: "PATCH",
+        headers: headers(),
+        body: JSON.stringify({ "athlete": data })
+    })
+    .catch(error => alert(error.message))
+}
+
+const deleteAthlete = (data) => {
+    return fetch(`${API_ROOT}/athletes/${data.id}`, {
+        method: "DELETE",
+        headers: headers()
+    })
+    .then(res => res.json())
+    .catch(error => alert(error.message))
+}
+
+//Export all functions
+export const api = {
+    auth: {
+        login,
+        getCurrentUser,
+        createUser,
+    },
+    athletes: {
+        getAthletes,
+        createAthlete,
+        editAthlete,
+        deleteAthlete
+    }
 }
