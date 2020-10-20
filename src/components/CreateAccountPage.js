@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { api } from "../services/api";
 import { Container, Form, Button } from "react-bootstrap";
 
+//Destructure form components
 const { Group, Label, Control } = Form;
 
-function CreateAccountPage() {
+function CreateAccountPage(props) {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
 
@@ -29,7 +30,7 @@ function CreateAccountPage() {
     api.auth.login(user).then((res) => {
       localStorage.setItem("token", res.jwt);
     });
-    this.props.history.push("/home");
+    props.history.push("/athletes");
   };
 
   return (

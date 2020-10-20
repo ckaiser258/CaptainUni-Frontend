@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const { Group, Label, Control } = Form;
 
-function LoginPage() {
+function LoginPage(props) {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
 
@@ -14,16 +14,27 @@ function LoginPage() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const issueTokenOrThrowError = (res) => {
+    if (res.message) {
+      return setError(res.message);
+    } else {
+      localStorage.setItem("token", res.jwt);
+      props.history.push("/athletes");
+    }
+  };
+
   //Verify user and then issue token and redirect to home page,
   //or throw error
   const login = (e) => {
     e.preventDefault();
-    setUser({});
-    api.auth.login(user).then((res) => {
-      if (res.message) return setError(res.message);
-      localStorage.setItem("token", res.jwt);
-    });
-    this.props.history.push("/home");
+    if (e.target.username.value && e.target.password.value) {
+      setUser({});
+      api.auth.login(user).then((res) => {
+        issueTokenOrThrowError(res);
+      });
+    } else {
+      setError("Please enter a username and password.");
+    }
   };
 
   return (
