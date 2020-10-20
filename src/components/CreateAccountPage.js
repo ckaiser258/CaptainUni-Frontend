@@ -13,22 +13,24 @@ function CreateAccountPage() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  //Verify valid credentials and POST user, or throw error
+  //Clear form, verify valid credentials and POST user,
+  //or throw error
   const createAccount = (e) => {
     e.preventDefault();
     setUser({});
     api.auth.createUser(user).then((res) => {
       if (res.error) return setError(res.error);
-      login(user)
+      login(user);
     });
   };
 
-    //Clear form, issue token, and redirect to home page
-    const login = (user) => {
-        api.auth.login(user).then((res) => {
-          localStorage.setItem("token", res.jwt);
-        });
-      };
+  //Issue token and redirect to home page
+  const login = (user) => {
+    api.auth.login(user).then((res) => {
+      localStorage.setItem("token", res.jwt);
+    });
+    this.props.history.push("/home");
+  };
 
   return (
     <>
@@ -38,7 +40,7 @@ function CreateAccountPage() {
       <div>
         <Container style={{ marginTop: 200, width: "30%" }}>
           <Form onSubmit={createAccount}>
-          <Group>
+            <Group>
               <Label>First Name</Label>
               <Control
                 name="first_name"
