@@ -4,33 +4,58 @@ import { Container, Form, Button } from "react-bootstrap";
 
 const { Group, Label, Control } = Form;
 
-function LoginPage() {
+function CreateAccountPage() {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
 
-  //Set user state to username and passwords fields
+  //Collect input for POST request
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  //Verify user and then issue token, or throw error
-  const login = (e) => {
+  //Verify valid credentials and POST user, or throw error
+  const createAccount = (e) => {
     e.preventDefault();
     setUser({});
-    api.auth.login(user).then((res) => {
-      if (res.message) return setError(res.message);
-      localStorage.setItem("token", res.jwt);
+    api.auth.createUser(user).then((res) => {
+      if (res.error) return setError(res.error);
+      login(user)
     });
   };
+
+    //Clear form, issue token, and redirect to home page
+    const login = (user) => {
+        api.auth.login(user).then((res) => {
+          localStorage.setItem("token", res.jwt);
+        });
+      };
 
   return (
     <>
       <div style={{ marginTop: 50 }}>
-        <h1>Welcome To CaptainUni</h1>
+        <h1>Create An Account</h1>
       </div>
       <div>
         <Container style={{ marginTop: 200, width: "30%" }}>
-          <Form onSubmit={login}>
+          <Form onSubmit={createAccount}>
+          <Group>
+              <Label>First Name</Label>
+              <Control
+                name="first_name"
+                type="name"
+                placeholder="Enter first name"
+                onChange={handleChange}
+              />
+            </Group>
+            <Group>
+              <Label>Last Name</Label>
+              <Control
+                name="last_name"
+                type="name"
+                placeholder="Enter last name"
+                onChange={handleChange}
+              />
+            </Group>
             <Group>
               <Label>Username</Label>
               <Control
@@ -50,10 +75,9 @@ function LoginPage() {
               />
             </Group>
             <Button variant="primary" type="submit">
-              Log In
+              Create Account
             </Button>
           </Form>
-          {/* Don't have an account? <Link to="/create-account">Click Here</Link> */}
         </Container>
         {error ? <h5>{error}</h5> : null}
       </div>
@@ -61,4 +85,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default CreateAccountPage;

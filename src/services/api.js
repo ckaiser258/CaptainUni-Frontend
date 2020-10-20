@@ -44,7 +44,7 @@ const createUser = (data) => {
         headers: headers(),
         body: JSON.stringify({ "user": obj })
     })
-    .catch(error => alert(error.message))
+    .then(res => res.json())
 }
 
 //Fetch athletes for current user
