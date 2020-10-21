@@ -8,6 +8,7 @@ const { Group, Label, Control } = Form;
 function LoginPage(props) {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   //Set user state to username and passwords fields
   const handleChange = (e) => {
@@ -23,15 +24,23 @@ function LoginPage(props) {
     }
   };
 
-  //Verify user and then issue token and redirect to home page,
+  const login = () => {
+    setLoading(true)
+    api.auth
+    .login(user)
+    .then((res) => {
+      issueTokenOrThrowError(res);
+    })
+    .then(() => setLoading(false));
+  }
+
+  //Verify user, initiate loading page, and then issue token and redirect to home page,
   //or throw error
-  const login = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target.username.value && e.target.password.value) {
       setUser({});
-      api.auth.login(user).then((res) => {
-        issueTokenOrThrowError(res);
-      });
+      login()
     } else {
       setError("Please enter a username and password.");
     }
@@ -44,7 +53,7 @@ function LoginPage(props) {
       </div>
       <div>
         <Container style={{ marginTop: 200, width: "30%" }}>
-          <Form onSubmit={login}>
+          <Form onSubmit={handleSubmit}>
             <Group>
               <Label>Username</Label>
               <Control
