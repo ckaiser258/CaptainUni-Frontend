@@ -1,23 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { api } from "../services/api";
+import React from "react";
 import AthleteCard from "./AthleteCard";
 
-function AthletesPage() {
-  const [athletes, setAthletes] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  //Fetch user's athletes upon component mount
-  //and clean up upon component unmount
-  useEffect(() => {
-    api.athletes.getAthletes().then((res) => {
-      setAthletes(res);
-      setLoading(false);
-    });
-    return () => {
-      setAthletes([]);
-      setLoading(true);
-    };
-  }, []);
+function AthletesPage({ athletes, loading }) {
 
   return loading ? (
     <h1>Loading...</h1>

@@ -8,7 +8,6 @@ const { Group, Label, Control } = Form;
 function LoginPage(props) {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   //Set user state to username and passwords fields
   const handleChange = (e) => {
@@ -25,13 +24,11 @@ function LoginPage(props) {
   };
 
   const login = () => {
-    setLoading(true)
     api.auth
     .login(user)
     .then((res) => {
       issueTokenOrThrowError(res);
     })
-    .then(() => setLoading(false));
   }
 
   //Verify user, initiate loading page, and then issue token and redirect to home page,
