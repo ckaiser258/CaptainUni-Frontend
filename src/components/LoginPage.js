@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { api } from "../services/api";
 import { Container, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const { Group, Label, Control } = Form;
 
-function LoginPage(props) {
+function LoginPage({login, history}) {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
 
@@ -19,13 +18,15 @@ function LoginPage(props) {
       return setError(res.message);
     } else {
       localStorage.setItem("token", res.jwt);
-      props.history.push("/athletes");
+      history.push("/athletes");
     }
   };
 
-  const login = () => {
-    api.auth
-    .login(user)
+  //login() is passed down from App level
+  //Calls the login() function from api.js and passes it the
+  //username and password from the form below
+  const onLogin = () => {
+    login(user)
     .then((res) => {
       issueTokenOrThrowError(res);
     })
@@ -37,7 +38,7 @@ function LoginPage(props) {
     e.preventDefault();
     if (e.target.username.value && e.target.password.value) {
       setUser({});
-      login()
+      onLogin()
     } else {
       setError("Please enter a username and password.");
     }

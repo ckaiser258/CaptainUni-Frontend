@@ -12,14 +12,20 @@ function App() {
   const [athletes, setAthletes] = useState({});
   const [loading, setLoading] = useState(false);
 
+  //Passed to LoginPage
+  //"user" is parameters on the login form
+  const login = (user) => {
+    return api.auth.login(user);
+  };
+
   //Fetch user's athletes upon component mount
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      setLoading(true)
+      setLoading(true);
       api.athletes.getAthletes().then((res) => {
         setAthletes(res);
-        setLoading(false)
+        setLoading(false);
       });
     }
   }, []);
@@ -27,7 +33,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Route exact path="/" render={(props) => <LoginPage {...props} />} />
+        <Route exact path="/" render={(props) => <LoginPage login={login} {...props} />} />
         <Route
           exact
           path="/create-account"
@@ -36,7 +42,9 @@ function App() {
         <Route
           exact
           path="/athletes"
-          render={(props) => <AthletesPage athletes={athletes} loading={loading} {...props} />}
+          render={(props) => (
+            <AthletesPage athletes={athletes} loading={loading} {...props} />
+          )}
         />
         <Route exact path="/athlete/:id" component={AthleteProfile} />
       </Router>
