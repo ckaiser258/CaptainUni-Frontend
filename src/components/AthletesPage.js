@@ -6,6 +6,8 @@ function AthletesPage() {
   const [athletes, setAthletes] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  //Fetch user's athletes upon component mount
+  //and clean up upon component unmount
   useEffect(() => {
     api.athletes.getAthletes().then((res) => {
       setAthletes(res);
@@ -22,11 +24,11 @@ function AthletesPage() {
   ) : athletes.length ? (
     athletes.map((athlete) => {
       return (
-        <div style={{ display: "inline-block" }}>
+        <div>
           <AthleteCard
             image={athlete.image}
             name={athlete.full_name}
-            key={athlete.id}
+            id={athlete.id}
           />
         </div>
       );
