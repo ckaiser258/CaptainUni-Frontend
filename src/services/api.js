@@ -28,7 +28,7 @@ const login = (data) => {
   }).then((res) => res.json());
 };
 
-//Fetch user after login, render JSON
+//Communicate current user to the backend
 const getCurrentUser = () => {
     return fetch(`${API_ROOT}/profile`, {
         headers: headers()
