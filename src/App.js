@@ -9,31 +9,30 @@ import AthletesPage from "./components/AthletesPage";
 import AthleteProfile from "./components/AthleteProfile";
 
 function App() {
-  const [athletes, setAthletes] = useState({});
+  const [athletes, setAthletes] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  //Passed to LoginPage
-  //"user" is parameters on the login form
-  const login = (user) => {
-    return api.auth.login(user);
+  const fetchAthletes = () => {
+    setLoading(true);
+    api.athletes.getAthletes().then((res) => {
+      setAthletes(res);
+      setLoading(false);
+    });
   };
 
   //Fetch user's athletes upon component mount
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      setLoading(true);
-      api.athletes.getAthletes().then((res) => {
-        setAthletes(res);
-        setLoading(false);
-      });
+      fetchAthletes();
+      api.auth.getCurrentUser();
     }
   }, []);
 
   return (
     <div className="App">
       <Router>
-        <Route exact path="/" render={(props) => <LoginPage login={login} {...props} />} />
+        <Route exact path="/" render={(props) => <LoginPage {...props} />} />
         <Route
           exact
           path="/create-account"
@@ -46,7 +45,30 @@ function App() {
             <AthletesPage athletes={athletes} loading={loading} {...props} />
           )}
         />
-        <Route exact path="/athlete/:id" component={AthleteProfile} />
+        {athletes.map((athlete) => {
+          return (
+            <Route
+              key={athlete.id}
+              exact
+              path="/athlete/:id"
+              render={(props) => (
+                <AthleteProfile
+                  image={athlete.image}
+                  name={athlete.full_name}
+                  phone_number={athlete.phone_number}
+                  address={athlete.address}
+                  height={athlete.height}
+                  weight={athlete.weight}
+                  birthday={athlete.birthday}
+                  positions={athlete.positions}
+                  high_school={athlete.high_school}
+                  graduation_year={athlete.graduation_year}
+                  gpa={athlete.gpa}
+                />
+              )}
+            />
+          );
+        })}
       </Router>
     </div>
   );
