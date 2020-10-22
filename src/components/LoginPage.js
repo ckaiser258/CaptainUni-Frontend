@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { api } from "../services/api"
 import { Container, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const { Group, Label, Control } = Form;
 
-function LoginPage({login, history}) {
+function LoginPage({ history }) {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
 
@@ -22,11 +23,8 @@ function LoginPage({login, history}) {
     }
   };
 
-  //login() is passed down from App level
-  //Calls the login() function from api.js and passes it the
-  //username and password from the form below
-  const onLogin = () => {
-    login(user)
+  const login = () => {
+    api.auth.login(user)
     .then((res) => {
       issueTokenOrThrowError(res);
     })
@@ -38,7 +36,7 @@ function LoginPage({login, history}) {
     e.preventDefault();
     if (e.target.username.value && e.target.password.value) {
       setUser({});
-      onLogin()
+      login()
     } else {
       setError("Please enter a username and password.");
     }
