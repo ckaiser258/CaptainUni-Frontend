@@ -45,8 +45,8 @@ function App() {
         <Route
           exact
           path="/athletes"
-          render={(props) => (
-            <AthletesPage athletes={athletes} loading={loading} {...props} />
+          render={() => (
+            <AthletesPage athletes={athletes} loading={loading} />
           )}
         />
         {athletes.map((athlete) => {

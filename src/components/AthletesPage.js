@@ -1,22 +1,14 @@
 import React from "react";
-import AthleteCard from "./AthleteCard";
+import AthletesList from "./AthletesList";
 
 function AthletesPage({ athletes, loading }) {
-
   return loading ? (
     <h1>Loading...</h1>
   ) : athletes.length ? (
-    athletes.map((athlete) => {
-      return (
-        <div>
-          <AthleteCard
-            image={athlete.image}
-            name={athlete.full_name}
-            id={athlete.id}
-          />
-        </div>
-      );
-    })
+      <>
+      <h1>Hello</h1>
+      <AthletesList athletes={athletes} />
+      </>
   ) : (
     <div>
       <h1>You don't have any athletes yet.</h1>
