@@ -1,11 +1,15 @@
 import React from "react";
+import EditAthleteForm from "./EditAthleteForm";
 
 function AthleteProfile(props) {
+
   return (
     <>
+      {/* Edit form is either showing or pencil button */}
+      <EditAthleteForm athleteName={props.name} />
       <div>
         <h1>{props.name}</h1>
-        <img src={props.image} alt={props.name + "'s photo"}/>
+        <img src={props.image} alt={props.name + "'s photo"} />
       </div>
       <div>
         <strong>Phone Number</strong> {props.phone_number}
@@ -13,7 +17,7 @@ function AthleteProfile(props) {
         <strong>Height</strong> {props.height}
         <strong>Weight</strong> {props.weight}
         <strong>Birthdate</strong> {props.birthday}
-        <strong>Positions:</strong> {props.positions}
+        <strong>Position:</strong> {props.positions}
       </div>
       <div>
         <strong>High School</strong> {props.high_school}
