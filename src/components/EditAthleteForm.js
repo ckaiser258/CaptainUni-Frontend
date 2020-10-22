@@ -4,11 +4,24 @@ import { Modal, Button, Form, Col } from "react-bootstrap";
 const { Header, Title, Body, Footer } = Modal;
 const { Group, Label, Control, Row, Text } = Form;
 
-function EditAthleteForm({ athleteName }) {
+function EditAthleteForm({ editAthlete, athleteName, athleteId }) {
   const [show, setShow] = useState(false);
-
+  const [fields, setFields] = useState({});
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  //Set fields state to input values
+  const handleChange = (e) => {
+    setFields({ ...fields, id: athleteId, [e.target.name]: e.target.value });
+  };
+
+  //editAthlete(fields) points to editAthlete(data) in AthleteProfile
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    editAthlete(fields);
+    setFields({})
+    handleClose()
+  };
 
   return (
     <>
@@ -22,10 +35,9 @@ function EditAthleteForm({ athleteName }) {
           <Title>Edit {athleteName}</Title>
         </Header>
         <Body>
-          <Form>
+          <Form onChange={handleChange}>
             <Row>
               {/* Name */}
-
               <Col>
                 <Group>
                   <Label>Full Name</Label>
@@ -176,7 +188,7 @@ function EditAthleteForm({ athleteName }) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSubmit}>
             Save Changes
           </Button>
         </Footer>
