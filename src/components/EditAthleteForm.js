@@ -14,7 +14,7 @@ function EditAthleteForm({ athleteName }) {
     <>
       {/* Show pencil icon if show is false */}
       <div>
-        <i class="fas fa-edit fa-2x" onClick={handleShow}></i>
+        <i className="fas fa-edit fa-2x" onClick={handleShow}></i>
       </div>
 
       <Modal show={show} onHide={handleClose} dialogClassName="modal-lg">

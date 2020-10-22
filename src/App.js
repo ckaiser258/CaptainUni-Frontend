@@ -20,6 +20,10 @@ function App() {
     });
   };
 
+  const addAthlete = (athlete) => {
+    api.athletes.createAthlete(athlete).then(setAthletes(...athletes, athlete));
+  };
+
   //Fetch user's athletes upon component mount
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -50,22 +54,8 @@ function App() {
             <Route
               key={athlete.id}
               exact
-              path="/athlete/:id"
-              render={(props) => (
-                <AthleteProfile
-                  image={athlete.image}
-                  name={athlete.full_name}
-                  phone_number={athlete.phone_number}
-                  address={athlete.address}
-                  height={athlete.height}
-                  weight={athlete.weight}
-                  birthday={athlete.birthday}
-                  positions={athlete.positions}
-                  high_school={athlete.high_school}
-                  graduation_year={athlete.graduation_year}
-                  gpa={athlete.gpa}
-                />
-              )}
+              path={`/athlete/${athlete.id}`}
+              render={() => <AthleteProfile currentAthlete={athlete} />}
             />
           );
         })}
