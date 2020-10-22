@@ -55,6 +55,14 @@ const getAthletes = () => {
     .then (res => res.json())
 }
 
+//Fetch one athlete
+const getAthlete = (id) => {
+     return fetch(`${API_ROOT}/athletes/${id}`, {
+        headers: headers()
+    })
+    .then (res => res.json())
+}
+
 const createAthlete = (data) => {
     return fetch(`${API_ROOT}/athletes`, {
         method: "POST",
@@ -91,6 +99,7 @@ export const api = {
     },
     athletes: {
         getAthletes,
+        getAthlete,
         createAthlete,
         editAthlete,
         deleteAthlete
