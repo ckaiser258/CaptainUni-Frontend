@@ -5,7 +5,7 @@ function NavBar({ user, logout }) {
   return (
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand href={user.first_name ? "/athletes" : null}>
-        <strong>CAPTAINUni</strong>
+        CAPTAIN<span id="u">U</span>ni
       </Navbar.Brand>
       <Navbar.Brand style={{ marginLeft: "auto" }}>
         {user.first_name ? `Hello, ${user.first_name}` : null}
