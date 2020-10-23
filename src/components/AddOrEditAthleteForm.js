@@ -41,7 +41,7 @@ function AddOrEditAthleteForm({ user, addAthlete, editAthlete, athleteName, athl
       {/* Either show pencil icon or Add Athlete button */}
       <div>
         {addAthlete ? (
-          <Button variant="secondary" onClick={handleShow}>
+          <Button variant="secondary" size="lg" onClick={handleShow}>
             Add Athlete
           </Button>
         ) : (

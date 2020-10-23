@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { api } from "../services/api";
 import AthletesList from "./AthletesList";
 import AddOrEditAthleteForm from "./AddOrEditAthleteForm";
+import { Row, Col, Container } from "react-bootstrap";
+import { Typography } from "@material-ui/core";
 
 function AthletesPage({ user }) {
   const [athletes, setAthletes] = useState([]);
@@ -52,12 +54,18 @@ function AthletesPage({ user }) {
   //Render loading screen during fetch
   //Then render list of their athletes or a prompt if there aren't any
   return loading ? (
-    <h1>Loading...</h1>
+    <Typography variant="h3">Loading...</Typography>
   ) : athletes.length ? (
     <>
-      <h1>Athletes</h1>
-      {/* Add form is either showing or button */}
-      <AddOrEditAthleteForm user={user} addAthlete={addAthlete} />
+      <Row>
+        <Col style={{marginTop: 20}}>
+          <Typography variant="h2">Athletes</Typography>
+        </Col>
+        {/* Add form is either showing or button */}
+        <Col style={{ marginTop: 50, marginBottom: 50 }}>
+          <AddOrEditAthleteForm user={user} addAthlete={addAthlete} />
+        </Col>
+      </Row>
       <AthletesList athletes={athletes} removeAthlete={removeAthlete} />
     </>
   ) : (

@@ -4,7 +4,7 @@ import { Navbar, Button } from "react-bootstrap";
 function NavBar({ user, logout }) {
   return (
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href={user ? "/athletes" : null}>
+      <Navbar.Brand href={user.first_name ? "/athletes" : null}>
         <strong>CAPTAINUni</strong>
       </Navbar.Brand>
       <Navbar.Brand style={{ marginLeft: "auto" }}>
