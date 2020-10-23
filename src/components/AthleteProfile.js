@@ -29,7 +29,6 @@ function AthleteProfile({ id, fetchAthletes }) {
 
   return (
     <>
-    {console.log(athlete)}
       {/* Edit form is either showing or pencil button */}
       <EditAthleteForm
         athleteId={athlete.id}

@@ -1,25 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { api } from "./services/api";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 
+import NavBar from "./components/NavBar";
 import LoginPage from "./components/LoginPage";
 import CreateAccountPage from "./components/CreateAccountPage";
 import AthletesPage from "./components/AthletesPage";
 import AthleteProfile from "./components/AthleteProfile";
 
 function App() {
-  
+  const [user, setUser] = useState({});
+
   //Fetch user component mount
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      api.auth.getCurrentUser();
+      api.auth.getCurrentUser().then((res) => setUser(res.user));
     }
   }, []);
 
   return (
     <div className="App">
+      <NavBar firstName={user.first_name} />
       <Router>
         <Route exact path="/" render={(props) => <LoginPage {...props} />} />
         <Route
