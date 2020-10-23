@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { api } from "../services/api";
 import AthletesList from "./AthletesList";
 import AddOrEditAthleteForm from "./AddOrEditAthleteForm";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { Typography } from "@material-ui/core";
 
 function AthletesPage({ user }) {

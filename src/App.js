@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { api } from "./services/api";
+import { Container, Paper } from "@material-ui/core";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
@@ -12,7 +13,19 @@ import AthleteProfile from "./components/AthleteProfile";
 function App() {
   const [user, setUser] = useState({});
 
-  //Fetch user component mount
+  // const login = (user) => {
+  //   return (
+  //   api.auth.login(user)
+  //   .then(setUser(user))
+  //   )
+  // }
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUser({});
+  };
+
+  //Fetch user on component mount
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -21,22 +34,39 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <NavBar firstName={user.first_name} />
-      <Router>
-        <Route exact path="/" render={(props) => <LoginPage {...props} />} />
-        <Route
-          exact
-          path="/create-account"
-          render={(props) => <CreateAccountPage {...props} />}
-        />
-        <Route exact path="/athletes" render={() => <AthletesPage user={user}/>} />
-        <Route
-          exact
-          path={`/athlete/:id`}
-          render={(props) => <AthleteProfile id={props.match.params.id} />}
-        />
-      </Router>
+    <div className="App" style={{ backgroundColor: "#EEEEEE"}}>
+      <NavBar user={user} logout={logout} />
+      <Container>
+        <Paper square className="paper-margins">
+          <Router>
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <LoginPage
+                  {...props}
+                  // login={login}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/create-account"
+              render={(props) => <CreateAccountPage {...props} />}
+            />
+            <Route
+              exact
+              path="/athletes"
+              render={() => <AthletesPage user={user} />}
+            />
+            <Route
+              exact
+              path={`/athlete/:id`}
+              render={(props) => <AthleteProfile id={props.match.params.id} />}
+            />
+          </Router>
+        </Paper>
+      </Container>
     </div>
   );
 }
