@@ -5,12 +5,15 @@ import { Link } from "react-router-dom";
 const { Item } = ListGroup;
 
 function AthleteCard({ image, name, id, removeAthlete }) {
-
   //removeAthlete(id) comes from AthletesPage level
   //Calls on deleteAthlete from api.js
   const handleDelete = () => {
-    removeAthlete(id)
-  }
+    removeAthlete(id);
+  };
+
+  const handleImageError = (e) => {
+    e.target.src = "https://www.w3schools.com/howto/img_avatar.png";
+  };
 
   return (
     <>
@@ -20,14 +23,17 @@ function AthleteCard({ image, name, id, removeAthlete }) {
           <Col>
             <Link to={`athlete/${id}`}>
               <img
-                src={image}
+                src={image || "https://www.w3schools.com/howto/img_avatar.png"}
                 alt={name}
                 style={{ maxWidth: "70%", maxHeight: "70%" }}
+                onError={handleImageError}
               />
               (Details)
             </Link>
-            </Col>
-            <Col><p onClick={handleDelete}>(Remove)</p></Col>
+          </Col>
+          <Col>
+            <p onClick={handleDelete}>(Remove)</p>
+          </Col>
           <Col>
             <h4>{name}</h4>
           </Col>
