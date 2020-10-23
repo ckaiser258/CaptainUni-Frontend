@@ -6,6 +6,17 @@ function AthletesPage() {
   const [athletes, setAthletes] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const removeAthlete = (id) => {
+    //Send DELETE request to api
+    api.athletes.deleteAthlete(id)
+    //Filter out removed athlete from state
+    const newAthletes =  athletes.filter(athlete => {
+      return athlete.id !== id
+    })
+    //Set new state
+    setAthletes(newAthletes)
+  }
+
   const fetchAthletes = () => {
     setLoading(true);
     api.athletes.getAthletes().then((res) => {
@@ -15,7 +26,7 @@ function AthletesPage() {
   };
 
   //Fetch user's athletes upon component mount
-  //Cleanup upon unmount
+  //Clean up upon unmount
   useEffect(() => {
     fetchAthletes();
     return () => {
@@ -29,8 +40,8 @@ function AthletesPage() {
     <h1>Loading...</h1>
   ) : athletes.length ? (
     <>
-      <h1>Hello</h1>
-      <AthletesList athletes={athletes} />
+      <h1>Athletes</h1>
+      <AthletesList athletes={athletes} removeAthlete={removeAthlete} />
     </>
   ) : (
     <div>

@@ -4,7 +4,14 @@ import { Link } from "react-router-dom";
 
 const { Item } = ListGroup;
 
-function AthleteCard({ image, name, id }) {
+function AthleteCard({ image, name, id, removeAthlete }) {
+
+  //removeAthlete(id) comes from AthletesPage level
+  //Calls on deleteAthlete from api.js
+  const handleDelete = () => {
+    removeAthlete(id)
+  }
+
   return (
     <>
       <Container>
@@ -20,7 +27,7 @@ function AthleteCard({ image, name, id }) {
               (Details)
             </Link>
             </Col>
-            <Col>(Remove)</Col>
+            <Col><p onClick={handleDelete}>(Remove)</p></Col>
           <Col>
             <h4>{name}</h4>
           </Col>

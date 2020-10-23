@@ -9,7 +9,7 @@ import AthletesPage from "./components/AthletesPage";
 import AthleteProfile from "./components/AthleteProfile";
 
 function App() {
-
+  
   //Fetch user component mount
   useEffect(() => {
     const token = localStorage.getItem("token");

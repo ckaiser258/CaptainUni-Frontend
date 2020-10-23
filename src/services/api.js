@@ -82,7 +82,7 @@ const editAthlete = (data) => {
 }
 
 const deleteAthlete = (data) => {
-    return fetch(`${API_ROOT}/athletes/${data.id}`, {
+    return fetch(`${API_ROOT}/athletes/${data}`, {
         method: "DELETE",
         headers: headers()
     })
