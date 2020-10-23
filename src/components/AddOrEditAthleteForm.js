@@ -4,7 +4,7 @@ import { Modal, Button, Form, Col } from "react-bootstrap";
 const { Header, Title, Body, Footer } = Modal;
 const { Group, Label, Control, Row, Text } = Form;
 
-function EditAthleteForm({ editAthlete, athleteName, athleteId }) {
+function AddOrEditAthleteForm({ user, addAthlete, editAthlete, athleteName, athleteId }) {
   const [show, setShow] = useState(false);
   const [fields, setFields] = useState({});
   const handleClose = () => setShow(false);
@@ -12,27 +12,48 @@ function EditAthleteForm({ editAthlete, athleteName, athleteId }) {
 
   //Set fields state to input values
   const handleChange = (e) => {
-    setFields({ ...fields, id: athleteId, [e.target.name]: e.target.value });
+    addAthlete
+      //If adding, set user id to current user
+      ? setFields({ user_id: user.id, ...fields, [e.target.name]: e.target.value })
+        //If editing, grab current athlete id
+      : setFields({
+          ...fields,
+          id: athleteId,
+          [e.target.name]: e.target.value,
+        });
   };
 
   //editAthlete(fields) points to editAthlete(data) in AthleteProfile
+  //addAthlete(fields) points to addAthlete(athlete) in AthletesPage
   const handleSubmit = (e) => {
     e.preventDefault();
-    editAthlete(fields);
-    setFields({})
-    handleClose()
+
+    //If submit is coming from athletesPage
+    //call addAthlete()
+    //else call editAthlete()
+    addAthlete ? addAthlete(fields) : editAthlete(fields);
+    setFields({});
+    handleClose();
   };
 
   return (
     <>
-      {/* Show pencil icon if show is false */}
+      {/* Either show pencil icon or Add Athlete button */}
       <div>
-        <i className="fas fa-edit fa-2x" onClick={handleShow}></i>
+        {addAthlete ? (
+          <Button variant="secondary" onClick={handleShow}>
+            Add Athlete
+          </Button>
+        ) : (
+          <Button variant="outline" onClick={handleShow}>
+            <i className="fas fa-edit fa-2x"></i>
+          </Button>
+        )}
       </div>
 
       <Modal show={show} onHide={handleClose} dialogClassName="modal-lg">
         <Header closeButton>
-          <Title>Edit {athleteName}</Title>
+          <Title>{addAthlete ? "Add Athlete" : `Edit ${athleteName}`}</Title>
         </Header>
         <Body>
           <Form onChange={handleChange}>
@@ -189,7 +210,7 @@ function EditAthleteForm({ editAthlete, athleteName, athleteId }) {
             Close
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
-            Save Changes
+            {addAthlete ? "Add Athlete" : "Save Changes"}
           </Button>
         </Footer>
       </Modal>
@@ -197,4 +218,4 @@ function EditAthleteForm({ editAthlete, athleteName, athleteId }) {
   );
 }
 
-export default EditAthleteForm;
+export default AddOrEditAthleteForm;

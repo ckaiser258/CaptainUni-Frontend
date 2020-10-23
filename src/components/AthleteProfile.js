@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { api } from "../services/api";
-import EditAthleteForm from "./EditAthleteForm";
+import AddOrEditAthleteForm from "./AddOrEditAthleteForm";
 
 function AthleteProfile({ id, fetchAthletes }) {
   const [athlete, setAthlete] = useState({});
@@ -30,7 +30,7 @@ function AthleteProfile({ id, fetchAthletes }) {
   return (
     <>
       {/* Edit form is either showing or pencil button */}
-      <EditAthleteForm
+      <AddOrEditAthleteForm
         athleteId={athlete.id}
         athleteName={athlete.full_name}
         editAthlete={editAthlete}

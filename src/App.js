@@ -30,7 +30,7 @@ function App() {
           path="/create-account"
           render={(props) => <CreateAccountPage {...props} />}
         />
-        <Route exact path="/athletes" component={AthletesPage} />
+        <Route exact path="/athletes" render={() => <AthletesPage user={user}/>} />
         <Route
           exact
           path={`/athlete/:id`}
