@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Button } from "react-bootstrap";
+import { Navbar, Button, Nav } from "react-bootstrap";
 
 function NavBar({ user, logout }) {
   return (
@@ -7,13 +7,20 @@ function NavBar({ user, logout }) {
       <Navbar.Brand href={user.first_name ? "/athletes" : null}>
         CAPTAIN<span id="u">U</span>ni
       </Navbar.Brand>
-      <Navbar.Brand style={{ marginLeft: "auto" }}>
-        {user.first_name ? `Hello, ${user.first_name}` : null}
-      </Navbar.Brand>
       {user.id ? (
-        <Button href="/" variant="outline-info" size="sm" onClick={logout}>
-          Log Out
-        </Button>
+        <>
+          <Nav>
+            <Nav.Link href="/athletes" style={{ color: "white", fontSize: 20 }}>
+              Athletes
+            </Nav.Link>
+          </Nav>
+          <Navbar.Brand style={{ marginLeft: "auto" }}>
+            Hello, {user.first_name}
+          </Navbar.Brand>
+          <Button href="/" variant="outline-info" size="sm" onClick={logout}>
+            Log Out
+          </Button>
+        </>
       ) : null}
     </Navbar>
   );
