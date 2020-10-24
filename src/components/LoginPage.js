@@ -59,7 +59,7 @@ function LoginPage({ history }) {
       </div>
       <div>
         <Container style={{ width: "50%", marginTop: "6%" }}>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} style={{marginBottom: 20}}>
             <Group>
               <Label>Username</Label>
               <Control
