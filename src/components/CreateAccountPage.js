@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { api } from "../services/api";
 import { Container, Form, Button } from "react-bootstrap";
+import { Typography } from "@material-ui/core";
 
 //Destructure form components
 const { Group, Label, Control } = Form;
@@ -35,11 +36,11 @@ function CreateAccountPage(props) {
 
   return (
     <>
-      <div style={{ marginTop: 50 }}>
-        <h1>Create An Account</h1>
+      <div style={{ marginTop: 50, paddingTop: 30 }}>
+        <Typography variant="h3">Create An Account</Typography>
       </div>
       <div>
-        <Container style={{ marginTop: 200, width: "30%" }}>
+        <Container style={{ marginTop: "4%", width: "40%" }}>
           <Form onSubmit={createAccount}>
             <Group>
               <Label>First Name</Label>
