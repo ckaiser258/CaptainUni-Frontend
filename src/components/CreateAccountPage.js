@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { api } from "../services/api";
+import { Link } from "react-router-dom";
 import { Container, Form, Button } from "react-bootstrap";
 import { Typography } from "@material-ui/core";
 
@@ -41,7 +42,7 @@ function CreateAccountPage(props) {
       </div>
       <div>
         <Container style={{ marginTop: "4%", width: "40%" }}>
-          <Form onSubmit={createAccount}>
+          <Form onSubmit={createAccount} style={{ marginBottom: 15 }}>
             <Group>
               <Label>First Name</Label>
               <Control
@@ -82,6 +83,9 @@ function CreateAccountPage(props) {
               Create Account
             </Button>
           </Form>
+          <Link to="/" style={{ marginTop: 20 }}>
+            Back to Login
+          </Link>
         </Container>
         {error ? <h5>{error}</h5> : null}
       </div>
