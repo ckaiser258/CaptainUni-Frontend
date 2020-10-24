@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import { api } from "../services/api";
 import AddOrEditAthleteForm from "./AddOrEditAthleteForm";
 import { Row, Col, Container } from "react-bootstrap";
-import {Typography} from "@material-ui/core"
+import { Typography } from "@material-ui/core";
 
 function AthleteProfile({ id, fetchAthletes }) {
   const [athlete, setAthlete] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const fetchAthlete = () => {
+    setLoading(true);
     api.athletes.getAthlete(id).then((res) => {
       setAthlete(res.athlete);
+      setLoading(false);
     });
   };
 
@@ -32,14 +35,16 @@ function AthleteProfile({ id, fetchAthletes }) {
     e.target.src = "https://www.w3schools.com/howto/img_avatar.png";
   };
 
-  return (
+  return loading ? (
+    <h1>Loading...</h1>
+  ) : (
     <>
       <Container>
-        <Row style={{paddingTop: 20}}>
-          <Col md="auto" style={{paddingLeft: 20}}>
+        <Row style={{ paddingTop: 20 }}>
+          <Col md="auto" style={{ paddingLeft: 20 }}>
             <Typography variant="h3">{athlete.full_name}</Typography>
           </Col>
-          <Col md="auto" style={{paddingLeft: 0}}>
+          <Col md="auto" style={{ paddingLeft: 0 }}>
             {/* If form is false, renders a pencil button */}
             <AddOrEditAthleteForm
               athleteId={athlete.id}
@@ -55,7 +60,10 @@ function AthleteProfile({ id, fetchAthletes }) {
           <Col>
             <img
               style={{ maxHeight: 250, maxWidth: 250 }}
-              src={athlete.image || "https://www.w3schools.com/howto/img_avatar.png"}
+              src={
+                athlete.image ||
+                "https://www.w3schools.com/howto/img_avatar.png"
+              }
               alt={athlete.full_name + "'s photo"}
               onError={handleImageError}
             />
@@ -84,18 +92,23 @@ function AthleteProfile({ id, fetchAthletes }) {
       </Container>
       <Container>
         <Row>
-        <Typography variant="h4" style={{marginLeft: 20, marginTop: 20, float: "left"}}>Academics</Typography>
-      </Row>
-      <hr />
-            <p>
-              <strong>High School</strong> {athlete.high_school}
-            </p>
-            <p>
-              <strong>Graduation Year</strong> {athlete.graduation_year}
-            </p>
-            <p>
-              <strong>GPA</strong> {athlete.gpa}
-            </p>
+          <Typography
+            variant="h4"
+            style={{ marginLeft: 20, marginTop: 20, float: "left" }}
+          >
+            Academics
+          </Typography>
+        </Row>
+        <hr />
+        <p>
+          <strong>High School</strong> {athlete.high_school}
+        </p>
+        <p>
+          <strong>Graduation Year</strong> {athlete.graduation_year}
+        </p>
+        <p>
+          <strong>GPA</strong> {athlete.gpa}
+        </p>
       </Container>
     </>
   );
