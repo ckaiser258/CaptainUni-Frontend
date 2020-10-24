@@ -20,30 +20,31 @@ function AthleteCard({ image, name, id, removeAthlete }) {
       <Container>
         <hr />
         <Row>
-          <Col>
+          <Col md="auto" >
             <Link to={`athlete/${id}`}>
               <img
                 src={image || "https://www.w3schools.com/howto/img_avatar.png"}
                 alt={name}
-                style={{ maxWidth: "70%", maxHeight: "70%" }}
+                style={{ maxWidth: 70, maxHeight: 70 }}
                 onError={handleImageError}
               />
             </Link>
           </Col>
-
-          <Col>
+          <Link to={`athlete/${id}`}>
+          <Col md="auto">
+            <h4 style={{whiteSpace: "nowrap", color: "black"}}>{name}</h4>
+          </Col>
+          </Link>
+          <Col md="auto" style={{paddingLeft: 0, paddingRight: 0}}>
             <Link to={`athlete/${id}`} style={{ color: "gray" }}>
               (Details)
             </Link>
           </Col>
 
-          <Col>
+          <Col md="auto" style={{paddingLeft: 3, paddingRight: 20}}>
             <p style={{ cursor: "pointer", color: "gray" }} onClick={handleDelete}>
               (Remove)
             </p>
-          </Col>
-          <Col>
-            <h4>{name}</h4>
           </Col>
           <Col>
             <ListGroup horizontal>
