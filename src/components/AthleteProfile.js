@@ -84,7 +84,7 @@ function AthleteProfile({ id, fetchAthletes }) {
       </Container>
       <Container>
         <Row>
-        <Typography variant="h4" style={{marginLeft: 20, float: "left"}}>Academics</Typography>
+        <Typography variant="h4" style={{marginLeft: 20, marginTop: 20, float: "left"}}>Academics</Typography>
       </Row>
       <hr />
             <p>
