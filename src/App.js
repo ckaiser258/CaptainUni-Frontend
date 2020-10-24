@@ -12,13 +12,28 @@ import AthleteProfile from "./components/AthleteProfile";
 
 function App() {
   const [user, setUser] = useState({});
+  // const [error, setError] = useState("")
+
+  // const issueTokenOrThrowError = (res) => {
+  //   if (res.message) {
+  //     return setError(res.message);
+  //   } else {
+  //     localStorage.setItem("token", res.jwt);
+  //   }
+  // };
 
   // const login = (user) => {
-  //   return (
-  //   api.auth.login(user)
-  //   .then(setUser(user))
-  //   )
-  // }
+  //   //Create POST request to api login function with
+  //   //state being sent from LoginPage
+  //   api.auth.login(user).then((res) => {
+  //     issueTokenOrThrowError(res)
+  //     //first_name needs to be set in state ahead of time
+  //     //to interact with the navbar without refreshing
+  //     user.first_name = res.user.first_name
+  //     setUser(res.user)
+  //     console.log(error)
+  //   })
+  // };
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -34,7 +49,10 @@ function App() {
   }, []);
 
   return (
-    <div className="App" style={{ backgroundColor: "#EEEEEE"}}>
+    <div
+      className="App"
+      style={{ paddingBottom: "25%", backgroundColor: "#EEEEEE" }}
+    >
       <NavBar user={user} logout={logout} />
       <Container>
         <Paper square className="paper-margins">
@@ -46,6 +64,7 @@ function App() {
                 <LoginPage
                   {...props}
                   // login={login}
+                  // error={error}
                 />
               )}
             />
