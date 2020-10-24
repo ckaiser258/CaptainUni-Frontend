@@ -28,22 +28,25 @@ function AthleteCard({ image, name, id, removeAthlete }) {
                 style={{ maxWidth: "70%", maxHeight: "70%" }}
                 onError={handleImageError}
               />
+            </Link>
+          </Col>
+
+          <Col>
+            <Link to={`athlete/${id}`} style={{ color: "gray" }}>
               (Details)
             </Link>
           </Col>
+
           <Col>
-            <p onClick={handleDelete}>(Remove)</p>
+            <p style={{ cursor: "pointer", color: "gray" }} onClick={handleDelete}>
+              (Remove)
+            </p>
           </Col>
           <Col>
             <h4>{name}</h4>
           </Col>
           <Col>
             <ListGroup horizontal>
-              <Link to={`athlete/${id}`}>
-                <Item variant="primary" action>
-                  View Profile
-                </Item>
-              </Link>
               <Item>Views</Item>
               <Item>Activity</Item>
               <Item>Colleges</Item>
