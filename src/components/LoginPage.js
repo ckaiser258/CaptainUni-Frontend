@@ -3,6 +3,7 @@ import { api } from "../services/api";
 import { Container, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
+import TypeIt from "typeit-react";
 
 const { Group, Label, Control } = Form;
 
@@ -26,7 +27,7 @@ function LoginPage({ history }) {
 
   const login = () => {
     api.auth.login(user).then((res) => {
-      setUser(res.user)
+      setUser(res.user);
       issueTokenOrThrowError(res);
     });
   };
@@ -52,7 +53,9 @@ function LoginPage({ history }) {
   return (
     <>
       <div style={{ marginTop: 50, paddingTop: 50 }}>
-        <Typography variant="h2" >Welcome To CaptainUni</Typography>
+        <Typography variant="h2">
+          <TypeIt>Welcome To CaptainUni</TypeIt>
+        </Typography>
       </div>
       <div>
         <Container style={{ width: "50%", marginTop: "6%" }}>
