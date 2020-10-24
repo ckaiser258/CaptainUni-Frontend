@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { api } from "../services/api"
+import { api } from "../services/api";
 import { Container, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { Typography } from "@material-ui/core";
 
 const { Group, Label, Control } = Form;
 
@@ -24,11 +25,17 @@ function LoginPage({ history }) {
   };
 
   const login = () => {
-    api.auth.login(user)
-    .then((res) => {
+    api.auth.login(user).then((res) => {
+      setUser(res.user)
       issueTokenOrThrowError(res);
-    })
-  }
+    });
+  };
+
+  // //login(user) is being passed down from app level
+  // const onLogin = () => {
+  //   login(user)
+  //   history.push("/athletes");
+  // };
 
   //Verify user, initiate loading page, and then issue token and redirect to home page,
   //or throw error
@@ -36,7 +43,7 @@ function LoginPage({ history }) {
     e.preventDefault();
     if (e.target.username.value && e.target.password.value) {
       setUser({});
-      login()
+      login();
     } else {
       setError("Please enter a username and password.");
     }
@@ -44,11 +51,11 @@ function LoginPage({ history }) {
 
   return (
     <>
-      <div style={{ marginTop: 50 }}>
-        <h1>Welcome To CaptainUni</h1>
+      <div style={{ marginTop: 50, paddingTop: 50 }}>
+        <Typography variant="h2" >Welcome To CaptainUni</Typography>
       </div>
       <div>
-        <Container style={{ marginTop: 200, width: "30%" }}>
+        <Container style={{ width: "50%", marginTop: "6%" }}>
           <Form onSubmit={handleSubmit}>
             <Group>
               <Label>Username</Label>
