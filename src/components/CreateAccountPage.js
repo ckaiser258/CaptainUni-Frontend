@@ -31,8 +31,11 @@ function CreateAccountPage(props) {
   const login = (user) => {
     api.auth.login(user).then((res) => {
       localStorage.setItem("token", res.jwt);
+      props.history.push("/athletes");
+      //Running into issue with athletes page not recognizing the user
+      //until window refresh even after setting state. Temporary fix below
+      window.location.reload();
     });
-    props.history.push("/athletes");
   };
 
   return (
