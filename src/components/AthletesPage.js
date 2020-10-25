@@ -69,10 +69,10 @@ function AthletesPage({ user }) {
       <AthletesList athletes={athletes} removeAthlete={removeAthlete} />
     </>
   ) : (
-    <div>
+    <div style={{paddingTop: 30}}>
       <h1>You don't have any athletes yet.</h1>
       <br />
-      <h1>Click "Add Athlete" to get started.</h1>
+      <h1 style={{marginBottom: 20}}>Click "Add Athlete" to get started.</h1>
       {/* Add form is either showing or button */}
       <AddOrEditAthleteForm user={user} addAthlete={addAthlete} />
     </div>
