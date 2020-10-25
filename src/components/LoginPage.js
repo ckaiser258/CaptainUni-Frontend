@@ -22,9 +22,9 @@ function LoginPage({ history }) {
     } else {
       localStorage.setItem("token", res.jwt);
       history.push("/athletes");
-      //Running into issue with server not setting the user
-      //until window refresh even after setting state
-      window.location.reload()
+      //Running into issue with athletes page not recognizing the user
+      //until window refresh even after setting state. Temporary fix below
+      window.location.reload();
     }
   };
 
@@ -56,7 +56,7 @@ function LoginPage({ history }) {
       </div>
       <div>
         <Container style={{ width: "50%", marginTop: "6%" }}>
-          <Form onSubmit={handleSubmit} style={{marginBottom: 20}}>
+          <Form onSubmit={handleSubmit} style={{ marginBottom: 20 }}>
             <Group>
               <Label>Username</Label>
               <Control

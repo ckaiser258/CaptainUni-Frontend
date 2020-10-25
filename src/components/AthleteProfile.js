@@ -4,7 +4,7 @@ import AddOrEditAthleteForm from "./AddOrEditAthleteForm";
 import { Row, Col, Container } from "react-bootstrap";
 import { Typography } from "@material-ui/core";
 
-function AthleteProfile({ id, fetchAthletes }) {
+function AthleteProfile({ id }) {
   const [athlete, setAthlete] = useState({});
   const [loading, setLoading] = useState(false);
 

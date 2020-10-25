@@ -58,7 +58,7 @@ function AthletesPage({ user }) {
   ) : athletes.length ? (
     <>
       <Row>
-        <Col style={{marginTop: 20}}>
+        <Col style={{ marginTop: 20 }}>
           <Typography variant="h2">Athletes</Typography>
         </Col>
         {/* Add form is either showing or button */}

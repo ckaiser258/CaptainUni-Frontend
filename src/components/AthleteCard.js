@@ -50,7 +50,7 @@ function AthleteCard({ image, name, id, removeAthlete }) {
             </p>
           </Col>
           <Col>
-            <ListGroup horizontal style={{float: "right"}}>
+            <ListGroup horizontal style={{ float: "right" }}>
               <Item>Views</Item>
               <Item>Activity</Item>
               <Item>Colleges</Item>
