@@ -22,6 +22,9 @@ function LoginPage({ history }) {
     } else {
       localStorage.setItem("token", res.jwt);
       history.push("/athletes");
+      //Running into issue with server not setting the user
+      //until window refresh even after setting state
+      window.location.reload()
     }
   };
 
@@ -31,12 +34,6 @@ function LoginPage({ history }) {
       issueTokenOrThrowError(res);
     });
   };
-
-  // //login(user) is being passed down from app level
-  // const onLogin = () => {
-  //   login(user)
-  //   history.push("/athletes");
-  // };
 
   //Verify user, initiate loading page, and then issue token and redirect to home page,
   //or throw error
