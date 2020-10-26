@@ -8,39 +8,44 @@ import TypeIt from "typeit-react";
 const { Group, Label, Control } = Form;
 
 function LoginPage({ history }) {
-  const [user, setUser] = useState({});
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  //Set user state to username and passwords fields
+  //Set state to username and passwords fields
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    e.target.name === "username"
+      ? setUsername(e.target.value)
+      : setPassword(e.target.value);
   };
 
+  //Issue token and redirect to home page or throw error
   const issueTokenOrThrowError = (res) => {
     if (res.message) {
-      return setError(res.message);
+      setError(res.message);
     } else {
       localStorage.setItem("token", res.jwt);
       history.push("/athletes");
-      //Running into issue with athletes page not recognizing the user
+
+      //Running into issue with athletes page not recognizing the username
       //until window refresh even after setting state. Temporary fix below
       window.location.reload();
     }
   };
 
   const login = () => {
+    //Create user object with input fields as values
+    let user = {};
+    user = { username: username, password: password };
+    //Pass object to login() api function for authentication
     api.auth.login(user).then((res) => {
-      setUser(res.user);
       issueTokenOrThrowError(res);
     });
   };
 
-  //Verify user, initiate loading page, and then issue token and redirect to home page,
-  //or throw error
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target.username.value && e.target.password.value) {
-      setUser({});
       login();
     } else {
       setError("Please enter a username and password.");
@@ -62,6 +67,7 @@ function LoginPage({ history }) {
               <Control
                 name="username"
                 type="name"
+                value={username}
                 placeholder="Enter username"
                 onChange={handleChange}
               />
@@ -71,6 +77,7 @@ function LoginPage({ history }) {
               <Control
                 name="password"
                 type="password"
+                value={password}
                 placeholder="Enter password"
                 onChange={handleChange}
               />
@@ -86,7 +93,7 @@ function LoginPage({ history }) {
         <p className="text-center">
           <small>
             <strong>
-              (For long-term user experience: <em>Username: user</em>,{" "}
+              (For long-term username experience: <em>Username: username</em>,{" "}
               <em>Password: 12345</em>)
             </strong>
           </small>

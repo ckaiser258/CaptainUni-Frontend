@@ -20,7 +20,6 @@ function CreateAccountPage(props) {
   //or throw error
   const createAccount = (e) => {
     e.preventDefault();
-    setUser({});
     api.auth.createUser(user).then((res) => {
       if (res.error) return setError(res.error);
       login(user);
