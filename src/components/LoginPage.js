@@ -93,7 +93,7 @@ function LoginPage({ history }) {
         <p className="text-center">
           <small>
             <strong>
-              (For long-term username experience: <em>Username: username</em>,{" "}
+              (For long-term username experience: <em>Username: user</em>,{" "}
               <em>Password: 12345</em>)
             </strong>
           </small>
